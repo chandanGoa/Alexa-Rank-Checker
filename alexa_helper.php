@@ -32,14 +32,14 @@ function alexaRank($site)
     {
         $alexa_pop = 'None';
         $regional_rank = 'None';
-    }
+    } 
 	
-	$a3 = $xml->RLS->RL;
-	if ($a3 != null)
+	$a2 = $xml->RLS->RL;
+	if ($a2 != null)
     {
 		$related = array();
 		$i = 0;
-		foreach($a3 as $ap){
+		foreach($a2 as $ap){
 			$related[$i]['title'] = (string)$ap->attributes()->TITLE;
 			$related[$i]['href'] = (string)$ap->attributes()->HREF;
 			$i++;
@@ -51,25 +51,8 @@ function alexaRank($site)
         $related[$i]['href'] = 'None';
     }
 
-    $a2 = $xml->SD[0]->LINKSIN;
-    if ($a2 != null)
-    {
-        $alexa_back = $xml->SD[0]->LINKSIN->attributes()->NUM;
-		/*
-        if ($alexa_back==null)
-        {
-            $outData = getMyData("http://www.alexa.com/siteinfo/$site");
-            $back = explode('<span class="font-4 box1-r">',$outData);
-            $back = explode('</span>',$back[1]);
-            $alexa_back = $back[0];
-        }
-		*/
-    } else
-    {
-        $alexa_back = '0';
-    }
-    $alexa_back = ($alexa_back==null ? '0' : $alexa_back);
-    return array($alexa_rank,$alexa_pop,$regional_rank,$alexa_back);
+
+    return array($alexa_rank,$alexa_pop,$regional_rank,$related);
 }
 
 ?>
